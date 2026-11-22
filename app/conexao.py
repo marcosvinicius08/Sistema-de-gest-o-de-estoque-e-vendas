@@ -79,15 +79,12 @@ def excluir_documento(documento_id, revisao):
 
 def listar_documentos(tipo):
     resposta = httpx.get(
-        BASE_URL,
-        params={
-            "include_docs": "true",
-            "startkey": f'"{tipo}"',
-            "endkey": f'"{tipo}\ufff0"'
-        },
+        f"{BASE_URL}/_all_docs",
+        params={"include_docs": "true"},
         auth=AUTH,
         timeout=10
     )
+
     resposta.raise_for_status()
 
     documentos = resposta.json()["rows"]
