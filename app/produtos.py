@@ -114,3 +114,4 @@ def excluir_produto(produto_id):
     excluir_documento(produto["_id"], produto["_rev"])
 
     return {"mensagem": "Produto excluído com sucesso"}
+  
