@@ -1,14 +1,27 @@
-services:
+﻿services:
   couchdb:
     image: couchdb:3
-    container_name: couchdb
     restart: unless-stopped
     environment:
-      COUCHDB_USER: admin
-      COUCHDB_PASSWORD: senha123
+      COUCHDB_USER: "${COUCHDB_USER:-admin}"
+      COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Defina COUCHDB_PASSWORD no arquivo .env}"
     ports:
       - "5984:5984"
     volumes:
       - couchdb_data:/opt/couchdb/data
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - couchdb
+    environment:
+      COUCHDB_URL: http://couchdb:5984
+      COUCHDB_USER: "${COUCHDB_USER:-admin}"
+      COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Defina COUCHDB_PASSWORD no arquivo .env}"
+      COUCHDB_DATABASE: "${COUCHDB_DATABASE:-estoque_vendas}"
+    ports:
+      - "8000:8000"
+
 volumes:
   couchdb_data:
