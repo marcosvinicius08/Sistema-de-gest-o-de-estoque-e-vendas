@@ -16,7 +16,7 @@
     depends_on:
       - couchdb
     environment:
-      COUCHDB_URL: http://couchdb:5984
+      COUCHDB_URL: http://couchdb1.local:5984
       COUCHDB_USER: "${COUCHDB_USER:-admin}"
       COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Defina COUCHDB_PASSWORD no arquivo .env}"
       COUCHDB_DATABASE: "${COUCHDB_DATABASE:-estoque_vendas}"

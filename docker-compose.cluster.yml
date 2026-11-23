@@ -1,0 +1,66 @@
+﻿services:
+  couchdb1:
+    image: couchdb:3.5.3
+    hostname: couchdb1.local
+    restart: unless-stopped
+    environment:
+      COUCHDB_USER: "${COUCHDB_USER:-admin}"
+      COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Senha ausente no .env}"
+      COUCHDB_ERLANG_COOKIE: "${COUCHDB_ERLANG_COOKIE:?Cookie ausente no .env}"
+      COUCHDB_SECRET: "${COUCHDB_SECRET:?Secret ausente no .env}"
+      NODENAME: couchdb1.local
+    ports:
+      - "5985:5984"
+    volumes:
+      - couchdb1_data:/opt/couchdb/data
+    networks:
+      default:
+        aliases:
+          - couchdb1.local
+
+  couchdb2:
+    image: couchdb:3.5.3
+    hostname: couchdb2.local
+    restart: unless-stopped
+    environment:
+      COUCHDB_USER: "${COUCHDB_USER:-admin}"
+      COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Senha ausente no .env}"
+      COUCHDB_ERLANG_COOKIE: "${COUCHDB_ERLANG_COOKIE:?Cookie ausente no .env}"
+      COUCHDB_SECRET: "${COUCHDB_SECRET:?Secret ausente no .env}"
+      NODENAME: couchdb2.local
+    ports:
+      - "5986:5984"
+    volumes:
+      - couchdb2_data:/opt/couchdb/data
+    networks:
+      default:
+        aliases:
+          - couchdb2.local
+
+  couchdb3:
+    image: couchdb:3.5.3
+    hostname: couchdb3.local
+    restart: unless-stopped
+    environment:
+      COUCHDB_USER: "${COUCHDB_USER:-admin}"
+      COUCHDB_PASSWORD: "${COUCHDB_PASSWORD:?Senha ausente no .env}"
+      COUCHDB_ERLANG_COOKIE: "${COUCHDB_ERLANG_COOKIE:?Cookie ausente no .env}"
+      COUCHDB_SECRET: "${COUCHDB_SECRET:?Secret ausente no .env}"
+      NODENAME: couchdb3.local
+    ports:
+      - "5987:5984"
+    volumes:
+      - couchdb3_data:/opt/couchdb/data
+    networks:
+      default:
+        aliases:
+          - couchdb3.local
+volumes:
+  couchdb1_data:
+  couchdb2_data:
+  couchdb3_data:
+
+networks:
+  default:
+    external: true
+    name: sistema-de-gest-o-de-estoque-e-vendas_default
